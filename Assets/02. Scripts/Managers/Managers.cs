@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
-    static Managers s_instance; // 유일성이 보장된다
-    static Managers Instance { get { Init(); return s_instance; } } // 유일한 매니저를 갖고온다
+    static Managers ins; // 유일성이 보장된다
+    static Managers Instance { get { Init(); return ins; } } // 유일한 매니저를 갖고온다
 
     InputManager _input = new InputManager();
     ResourceManager _resource = new ResourceManager();
@@ -27,7 +27,7 @@ public class Managers : MonoBehaviour
 
     static void Init()
     {
-        if (s_instance == null)
+        if (ins == null)
         {
 			GameObject go = GameObject.Find("@Managers");
             if (go == null)
@@ -37,7 +37,7 @@ public class Managers : MonoBehaviour
             }
 
             DontDestroyOnLoad(go);
-            s_instance = go.GetComponent<Managers>();
+            ins = go.GetComponent<Managers>();
 		}		
 	}
 }

@@ -6,13 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     float _speed = 10.0f;
-
 	Vector3 _destPos;
 
     void Start()
     {
 		Managers.Input.MouseAction -= OnMouseClicked;
 		Managers.Input.MouseAction += OnMouseClicked;
+		Managers.Resource.Instantiate("UI/UI_Button");
 	}
 
 	public enum PlayerState
@@ -77,7 +77,9 @@ public class PlayerController : MonoBehaviour
 	void OnMouseClicked(Define.MouseEvent evt)
 	{
 		if (_state == PlayerState.Die)
+        {
 			return;
+        }
 
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		Debug.DrawRay(Camera.main.transform.position, ray.direction * 100.0f, Color.red, 1.0f);
