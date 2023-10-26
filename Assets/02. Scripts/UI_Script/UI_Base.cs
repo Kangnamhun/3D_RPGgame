@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_Base : MonoBehaviour
@@ -57,5 +58,24 @@ public class UI_Base : MonoBehaviour
     protected Image GetImage(int idx)
     {
         return Get<Image>(idx);
+    }
+
+    public static void AddUIEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
+    {
+        UI_Evnet _evnet = Util.GetOrAddComponent<UI_Evnet>(go);
+
+        switch (type)
+        {
+            case Define.UIEvent.Click:
+                _evnet.OnClickHandler -= action;
+                _evnet.OnClickHandler += action;
+                break;
+            case Define.UIEvent.Drag:
+                _evnet.OnDragHandler -= action;
+                _evnet.OnDragHandler += action;
+                break;
+
+        }
+        _evnet.OnDragHandler += ((PointerEventData data) => { _evnet.gameObject.transform.position = data.position; });
     }
 }

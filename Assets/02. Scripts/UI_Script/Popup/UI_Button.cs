@@ -6,7 +6,7 @@ using TMPro;
 using System;
 using UnityEngine.EventSystems;
 
-public class UI_Button : UI_Base
+public class UI_Button : UI_Popup
 {
     
 
@@ -34,18 +34,20 @@ public class UI_Button : UI_Base
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<GameObject>(typeof(GameOBJ));
         Bind<Image>(typeof(Images));
-        GetText((int)Texts.ScoreText).text = "Bind Test";
 
+
+        //GetImage((int)Images.ItemIcon).gameObject.AddUIEvent();
+
+        GetButton((int)Buttons.PointButton).gameObject.AddUIEvent(OnButtonClick);
         GameObject go =  GetImage((int)Images.ItemIcon).gameObject;
-        UI_Evnet _evnet = go.GetComponent<UI_Evnet>();
-        _evnet.OnDragHandler += ((PointerEventData data) => { _evnet.gameObject.transform.position = data.position; });
+        AddUIEvent(go, (PointerEventData data) => { go.transform.position = data.position; },Define.UIEvent.Drag);
     }
     
 
     int score = 0;
-    public void OnButtonClick()
+    public void OnButtonClick(PointerEventData data)
     {
-        Debug.Log("dddd");
         score++;
+        GetText((int)Texts.ScoreText).text = $"Á¡¼ö : {score}";
     }
 }
