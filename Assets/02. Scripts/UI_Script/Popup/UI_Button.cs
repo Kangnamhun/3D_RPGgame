@@ -30,19 +30,24 @@ public class UI_Button : UI_Popup
     }
     private void Start()
     {
+        Init();
+    }
+
+    public override void Init()
+    {
+        base.Init();
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<GameObject>(typeof(GameOBJ));
         Bind<Image>(typeof(Images));
 
 
-        //GetImage((int)Images.ItemIcon).gameObject.AddUIEvent();
 
         GetButton((int)Buttons.PointButton).gameObject.AddUIEvent(OnButtonClick);
-        GameObject go =  GetImage((int)Images.ItemIcon).gameObject;
-        AddUIEvent(go, (PointerEventData data) => { go.transform.position = data.position; },Define.UIEvent.Drag);
+        GameObject go = GetImage((int)Images.ItemIcon).gameObject;
+        AddUIEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
     }
-    
+
 
     int score = 0;
     public void OnButtonClick(PointerEventData data)

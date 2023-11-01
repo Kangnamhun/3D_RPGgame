@@ -12,8 +12,7 @@ public class PlayerController : MonoBehaviour
     {
 		Managers.Input.MouseAction -= OnMouseClicked;
 		Managers.Input.MouseAction += OnMouseClicked;
-		UI_Button ui =  Managers.UI.ShowPopupUI<UI_Button>();
-		Managers.UI.ClosePopup(ui);
+
 	}
 
 	public enum PlayerState
@@ -28,7 +27,6 @@ public class PlayerController : MonoBehaviour
 	void UpdateDie()
 	{
 		// 아무것도 못함
-
 	}
 
 	void UpdateMoving()
